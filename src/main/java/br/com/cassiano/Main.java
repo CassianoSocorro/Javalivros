@@ -1,35 +1,61 @@
 package br.com.cassiano;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+
 public class Main {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
         ArrayList<Livro> estante = new ArrayList<>();
-    System.out.print("Qual o título do livro? ");
-    String titulo = teclado.nextLine();
+        int quantidadeLivros = 0;
 
-    System.out.print("Quantas páginas o livro tem ao todo? ");
-    int totalPaginas = teclado.nextInt();
+            while(quantidadeLivros <=0){
+            try{
+            System.out.println("Qual a quantdade de livros que você costuma ler? ");
+            quantidadeLivros = teclado.nextInt();
+            teclado.nextLine();
+            
+            if (quantidadeLivros <= 0) {
+            System.out.println("Digite uma quantidade maior que zero!");
+        }
 
-    System.out.print("Quantas páginas você já leu hoje? ");
-    int paginasLidas = teclado.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Digite apenas números inteiros");
+                teclado.nextLine();
+            }
+        }
+            for(int i = 0; i < quantidadeLivros; i++){
+            System.out.print("\nQual o título do livro? ");
+            String titulo = teclado.nextLine();
 
-    int faltaLer = totalPaginas - paginasLidas;
-        Livro livro = new Livro(titulo, totalPaginas, paginasLidas, faltaLer);
-        estante.add(livro);
-    for (iterable_type iterable_element : iterable) {
-        
-    for (Livro livro : estante){
-    System.out.println("\n Resumo: ");
-    System.out.println("Livro: " + livro.getTitulo());
-    System.out.println("Faltam " + livro.getFaltaLer() + " páginas para terminar o livro");
-    }
-    if(livro.getPaginasLidas() >= 2){
-        System.out.println("Meta alcançada! Parabéns pelo dia!");
+            System.out.print("Quantas páginas o livro tem ao todo? ");
+            int totalPaginas = teclado.nextInt();
+            teclado.nextLine();
+
+
+            System.out.print("Quantas páginas você já leu hoje? ");
+            int paginasLidas = teclado.nextInt();
+            teclado.nextLine();
+
+            int faltaLer = totalPaginas - paginasLidas;
+
+             Livro livro = new Livro(titulo, totalPaginas, paginasLidas, faltaLer);
+
+            estante.add(livro);
+            }
+        for(Livro livroAtual: estante){
+        System.out.println("\nResumo: ");
+        System.out.println("Livro: " + livroAtual.getTitulo());
+        System.out.println("Faltam " + livroAtual.getFaltaLer() + " páginas para terminar o livro");
+    
+    if(livroAtual.getPaginasLidas() >= 2){
+        System.out.println("Meta alcançada! Parabéns pelo dia!\n");
     }else{
-        System.out.println("Dá pra melhorar ein");
+        System.out.println("Dá pra melhorar ein\n");
     }
-    System.out.println(estante.size());
+}
+    System.out.println("Total de livros na estante: " + estante.size());
+
         teclado.close();
 
     }
