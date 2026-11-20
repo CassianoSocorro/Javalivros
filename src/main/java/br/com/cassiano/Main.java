@@ -36,18 +36,21 @@ public class Main {
             System.out.print("Quantas páginas você já leu hoje? ");
             int paginasLidas = teclado.nextInt();
             teclado.nextLine();
+            try {
 
-            int faltaLer = totalPaginas - paginasLidas;
-
-             Livro livro = new Livro(titulo, totalPaginas, paginasLidas, faltaLer);
+             Livro livro = new Livro(titulo, totalPaginas, paginasLidas);
 
             estante.add(livro);
+            
+         } catch (IllegalArgumentException e) {
+
+    System.out.println("Erro ao cadastrar livro: " + e.getMessage());
+
+}
             }
         for(Livro livroAtual: estante){
-        System.out.println("\nResumo: ");
-        System.out.println("Livro: " + livroAtual.getTitulo());
-        System.out.println("Faltam " + livroAtual.getFaltaLer() + " páginas para terminar o livro");
-    
+        livroAtual.exibirResumo();
+        
     if(livroAtual.getPaginasLidas() >= 2){
         System.out.println("Meta alcançada! Parabéns pelo dia!\n");
     }else{
@@ -56,7 +59,10 @@ public class Main {
 }
     System.out.println("Total de livros na estante: " + estante.size());
 
-        teclado.close();
+    teclado.close();
 
     }
-}
+
+    }
+    
+
