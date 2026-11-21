@@ -11,7 +11,6 @@ public class Livro {
         if (totalPaginas <= 0 || paginasLidas <= 0 || paginasLidas > totalPaginas || metaPaginas <= 0) {
             throw new IllegalArgumentException("Quantidade de páginas inválida!");
         }
-        
         this.titulo = titulo;
         this.totalPaginas = totalPaginas;
         this.paginasLidas = paginasLidas;

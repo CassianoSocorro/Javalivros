@@ -101,8 +101,63 @@ public class Main {
             }
 
             System.out.println("Total de livros na estante: " + estante.size());
-            teclado.close();
-
         }
+            boolean continuarAtualizando = true;
+        while (continuarAtualizando) {
+            System.out.println("\nEscolha um livro para atualizar (ou 0 para sair):");
+            for (int i = 0; i < estante.size(); i++) {
+                System.out.println((i + 1) + " - " + estante.get(i).getTitulo());
+            }
+
+            int escolha = -1;
+            while (escolha < 0 || escolha > estante.size()) {
+                try {
+                    System.out.print("Opção: ");
+                    escolha = teclado.nextInt();
+                    teclado.nextLine();
+
+                    if (escolha < 0 || escolha > estante.size()) {
+                        System.out.println("Escolha 0 para sair ou um número entre 1 e " + estante.size() + ".");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Digite apenas números inteiros!");
+                    teclado.nextLine();
+                }
+            }
+
+            if (escolha == 0) {
+                continuarAtualizando = false;
+                continue;
+            }
+
+            Livro livroEscolhido = estante.get(escolha - 1);
+
+            int novasPaginas = -1;
+            while (novasPaginas < 0) {
+                try {
+                    System.out.print("Quantas páginas você leu? ");
+                    novasPaginas = teclado.nextInt();
+                    teclado.nextLine();
+
+                    if (novasPaginas < 0) {
+                        System.out.println("Digite um valor zero ou positivo!");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Digite apenas números inteiros!");
+                    teclado.nextLine();
+                }
+            }
+
+            try {
+                livroEscolhido.adicionarPaginasLidas(novasPaginas);
+                System.out.println("\nResumo atualizado:");
+                livroEscolhido.exibirResumo();
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erro ao atualizar páginas: " + e.getMessage());
+            }
+        }
+
+        System.out.println("Atualizações concluídas. Boa leitura!");
+        teclado.close();
     }
 }
